@@ -256,7 +256,7 @@ const App: React.FC = () => {
             />
             
             {!isComparisonMode && (
-              <div className="hidden lg:block h-[400px]">
+              <div className="h-[400px]">
                 <HistoryPanel 
                   history={generatedTokens}
                   activeStepId={activeStepId}
@@ -266,8 +266,8 @@ const App: React.FC = () => {
             )}
           </div>
 
-          {/* Middle Column: Visualizations (6 cols) */}
-          <div className="lg:col-span-6 space-y-6 flex flex-col">
+          {/* Middle Column: Visualizations (9 cols) */}
+          <div className="lg:col-span-9 space-y-6 flex flex-col">
             
             {isComparisonMode ? (
               // Comparison Grid
@@ -297,7 +297,7 @@ const App: React.FC = () => {
               </div>
             ) : (
               // Single View
-              <div className="flex-1 min-h-[300px]">
+              <div className="flex-1 min-h-[500px]">
                 <SequenceDisplay 
                   basePrompt={basePrompt}
                   generatedSteps={generatedTokens}
@@ -322,59 +322,7 @@ const App: React.FC = () => {
               </p>
             </div>
           </div>
-
-          {/* Right Column: Chart (3 cols) */}
-          <div className="lg:col-span-3 space-y-6">
-            <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-1">
-               {/* Mobile History View (only visible on small screens when not comparing) */}
-               {!isComparisonMode && (
-                 <div className="lg:hidden mb-4 p-2">
-                   <HistoryPanel 
-                    history={generatedTokens}
-                    activeStepId={activeStepId}
-                    onStepClick={handleStepClick}
-                  />
-                 </div>
-               )}
-
-               <div className="p-3">
-                 <div className="mb-2 text-sm font-medium text-gray-500 uppercase tracking-wide flex justify-between items-center">
-                    <span>{activeStepId ? "Probability Distribution" : "Ready to Generate"}</span>
-                    {activeStep && isComparisonMode && (
-                      <span className={`text-[10px] px-1.5 rounded ${generatedTokens.find(s => s.id === activeStep.id) ? 'bg-blue-100 text-blue-700' : 'bg-indigo-100 text-indigo-700'}`}>
-                        {generatedTokens.find(s => s.id === activeStep.id) ? 'Seq A' : 'Seq B'}
-                      </span>
-                    )}
-                 </div>
-                 {chartData.length > 0 ? (
-                   <ProbabilityChart 
-                     data={chartData} 
-                     chosenToken={chosenToken}
-                   />
-                 ) : (
-                   <div className="h-64 flex items-center justify-center text-center p-6 text-gray-400 border-2 border-dashed border-gray-100 rounded-lg">
-                     <p>Generate a token and select it to see the probability distribution of its candidates.</p>
-                   </div>
-                 )}
-               </div>
-            </div>
-
-            {/* Legend / Info */}
-            <div className="bg-white rounded-xl border border-gray-200 p-5 shadow-sm space-y-3">
-               <h3 className="font-semibold text-gray-800 text-sm">Understanding the Data</h3>
-               <div className="space-y-2 text-xs text-gray-600">
-                 <div className="flex items-start gap-2">
-                   <div className="w-3 h-3 bg-green-500 rounded-full mt-0.5 shrink-0"></div>
-                   <p><strong>Chosen Token:</strong> The token actually selected by the model based on random sampling weighted by probability.</p>
-                 </div>
-                 <div className="flex items-start gap-2">
-                   <div className="w-3 h-3 bg-sky-500 rounded-full mt-0.5 shrink-0"></div>
-                   <p><strong>Top Candidates:</strong> Other likely tokens the model considered. Lower temperature makes the model pick high-probability tokens more often.</p>
-                 </div>
-               </div>
-            </div>
-          </div>
-
+          
         </div>
       </main>
     </div>
