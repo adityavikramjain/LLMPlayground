@@ -1,0 +1,5 @@
+{
+  "name": "LLM Auto-Regression Playground",
+  "description": "An interactive educational tool to visualize how Large Language Models generate text one token at a time using probability distributions.",
+  "requestFramePermissions": []
+}
